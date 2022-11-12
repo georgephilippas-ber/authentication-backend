@@ -6,14 +6,24 @@
     <title>Title</title>
 </head>
 <body>
-<div class="login">
-    <input id="identifier" type="text" placeholder="username or e-mail">
-    <input id="password" type="password">
-    <button id="submit">Login</button>
-</div>
-<div id="login-outcome" class="login-outcome">
+<div class="login-container">
+    <div class="login-logo">
+        <img style="height: 6em" src="{{ url_for('static', filename=variables['logo_image']) }}">
+    </div>
 
+    <div class="login-prompt">
+        Sign in
+    </div>
+    <div class="login-input-container">
+        <input id="identifier" type="text" placeholder="username or e-mail">
+        <input id="password" type="password">
+    </div>
+    <div class="login-submit-container">
+        <button id="submit">Log in</button>
+    </div>
 </div>
+
+<div id="login-outcome" class="login-outcome"></div>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -29,21 +39,40 @@
         password = object.target.value;
     });
 
-    document.getElementById("submit").addEventListener("click", () => {
-        console.log(identifier, password);
+    login_outcome_element = document.getElementById("login-outcome");
 
-        axios.post("{{ variables["authentication_URL"] }}", {identifier: identifier, password: password}).then(value => {
+    document.getElementById("submit").addEventListener("click", () => {
+        axios.post("{{ variables["authentication_url"] }}", {identifier: identifier, password: password}).then(value => {
             console.log(value.data.token);
 
-            localStorage.setItem("accessToken", value.data.token);
+            localStorage.setItem("{{ variables["local_storage_key"] }}", value.data.token);
+
+            login_outcome_element.style.opacity = 1;
+            login_outcome_element.innerHTML = "login success";
+
+            setTimeout(() =>
+                window.location = "{{ variables["login_success_redirect_url"] }}",
+                1_000);
         }).catch(err => {
-            element = document.getElementById("login-outcome")
-            element.style.opacity = 1;
-            element.innerHTML = "login failed";
+
+
+            login_outcome_element.style.opacity = 1;
+            login_outcome_element.innerHTML = "login failed";
+
             console.log(err.message)
-            setTimeout(() => element.style.opacity = 0, 2_000);
+            setTimeout(() => login_outcome_element.style.opacity = 0, 2_000);
         });
     });
+
+
+
+
+
+
+
+
+
+
 
 </script>
 </html>

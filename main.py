@@ -1,13 +1,28 @@
 from flask import Flask, request, Response, render_template
+from flask_cors import CORS
 
 from managers.authentication_manager import AuthenticationManager, Agent
 from managers.database_provider.mongodb_provider import MongoDBProvider
 from model.authentication import hash_password
 
 import requests
+from dataclasses import dataclass, asdict
 
+
+@dataclass(frozen=True)
+class Configuration:
+    authentication_url: str
+    local_storage_key: str
+    logo_image: str
+    login_success_redirect_url: str
+
+
+configuration = Configuration("http://localhost:16384/authenticate", "access_token",
+                              "images/brand/Logo Files/For Web/svg/Black logo - no background.svg",
+                              "http://www.google.com")
 
 application = Flask(__name__)
+CORS(application)
 
 database_provider = MongoDBProvider("personal")
 
@@ -20,7 +35,7 @@ authentication_manager.create(Agent(-1, "root", "root@localhost", password_hash,
 
 @application.route("/")
 def index():
-    return render_template("index.html", variables={"authentication_URL": "http://localhost:16384/authenticate"})
+    return render_template("index.html", variables=asdict(configuration))
 
 
 @application.route("/users", methods=["GET"])

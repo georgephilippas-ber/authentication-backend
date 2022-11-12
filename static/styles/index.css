@@ -7,23 +7,55 @@ body
     margin: 0;
     padding: 0;
 
-    height: 100vh;
 
     font-family: "Alegreya Sans", sans-serif;
     font-size: 1.25rem;
 }
 
-.login-container
+.login-logo
 {
-    margin-top: 10em;
-    width: 40%;
-    height: 40%;
+    margin: 1em;
+    text-align: center;
+}
 
-    box-shadow: 5px 5px 10px black;
+.login-prompt
+{
+    font-size: 2em;
+    text-align: center;
 
+    margin-bottom: 1em;
+}
+
+.login-input-container
+{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 6em;
+
+    margin: 1em;
+}
+
+.login-container
+{
+    padding: 2em;
+
+    margin-top: 10em;
+    width: 40%;
+
+    box-shadow: 5px 5px 10px black;
+}
+
+.login-submit-container
+{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
+
+    margin-top: 2em;
+
 }
 
 input
@@ -31,29 +63,28 @@ input
     font-family: inherit !important;
     font-size: inherit !important;
 
+    width: 100%;
     height: 1.65em;
     padding: 0.35em;
     
     border: 1px solid black;
     border-radius: 0.45em;
 
-    margin: 1em 4em;
-    
     outline: none;
-
 }
 
 button
 {
-font-family: inherit !important;
-font-size: inherit !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
     outline: none !important;
 
     border: none;
-    padding: 0.45em 0.55em;
+    padding: 0.45em 0.75em;
 
     background: black;
     color: white;
+
     border-radius:0.45em;
     box-shadow: 0 0 12px black;
 }
@@ -65,7 +96,11 @@ button:active
 
 .login-outcome
 {
+    box-shadow: 5px 5px 10px black;
+    padding: 0.45em 0.65em;
+
     opacity: 0;
+
     position: fixed;
     bottom: 1em;
     left: 1em;
