@@ -15,7 +15,7 @@ class Configuration:
 
 configuration = Configuration("http://localhost:16384/authenticate", "access_token",
                               "images/brand/Logo Files/For Web/svg/Black logo - no background.svg",
-                              "http://www.google.com")
+                              "https://www.google.com/")
 
 database_provider = MongoDBProvider("personal")
 
