@@ -9,8 +9,6 @@ import jwt
 
 from model.authentication import verify_password
 
-jwt_secret = "Machiavellianism"
-
 
 @dataclass()
 class Agent:
@@ -35,11 +33,15 @@ class AuthenticationManager:
     collection_name: str
     collection: Collection
 
-    def __init__(self, database_provider: MongoDBProvider, collection: str = "AuthenticationManager"):
+    jwt_secret: str
+
+    def __init__(self, database_provider: MongoDBProvider, jwt_secret: str, collection: str = "AuthenticationManager"):
         self.database_provider = database_provider
         self.collection_name = collection
 
         self.collection = self.database_provider.database.get_collection(self.collection_name)
+
+        self.jwt_secret = jwt_secret
 
     def create(self, agent: Agent):
         self.collection.update_one({"user_id": agent.user_id}, {"$set": asdict(agent)}, upsert=True)
@@ -75,6 +77,6 @@ class AuthenticationManager:
         if agent is not None and verify_password(password, agent.password_hash, agent.salt):
             object_ = {"user_id": agent.user_id, "username": agent.username, "email": agent.email}
 
-            return jwt.encode(object_, jwt_secret)
+            return jwt.encode(object_, self.jwt_secret)
         else:
             return None

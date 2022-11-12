@@ -11,15 +11,16 @@ class Configuration:
     local_storage_key: str
     logo_image: str
     login_success_redirect_url: str
+    jwt_secret: str
 
 
 configuration = Configuration("http://localhost:16384/authenticate", "access_token",
                               "images/brand/Logo Files/For Web/svg/Black logo - no background.svg",
-                              "https://www.google.com/")
+                              "https://www.google.com/", "jwt_secret")
 
 database_provider = MongoDBProvider("personal")
 
-authentication_manager = AuthenticationManager(database_provider)
+authentication_manager = AuthenticationManager(database_provider, configuration.jwt_secret)
 
 
 def initialize_database():
