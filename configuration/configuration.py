@@ -7,6 +7,7 @@ from model.authentication import hash_password
 
 @dataclass(frozen=True)
 class Configuration:
+    port: int
     authentication_url: str
     local_storage_key: str
     logo_image: str
@@ -14,7 +15,7 @@ class Configuration:
     jwt_secret: str
 
 
-configuration = Configuration("http://localhost:16384/authenticate", "access_token",
+configuration = Configuration(0x4000, "http://localhost:16384/authenticate", "access_token",
                               "images/brand/Logo Files/For Web/svg/Black logo - no background.svg",
                               "https://www.google.com/", "jwt_secret")
 
