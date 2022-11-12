@@ -8,8 +8,10 @@ body
     padding: 0;
 
     height: 100vh;
-}
 
+    font-family: "Alegreya Sans", sans-serif;
+    font-size: 1.25rem;
+}
 
 .login-container
 {
@@ -26,6 +28,9 @@ body
 
 input
 {
+    font-family: inherit !important;
+    font-size: inherit !important;
+
     height: 1.65em;
     padding: 0.35em;
     
@@ -40,5 +45,28 @@ input
 
 button
 {
+font-family: inherit !important;
+font-size: inherit !important;
     outline: none !important;
+
+    border: none;
+    padding: 0.45em 0.55em;
+
+    background: black;
+    color: white;
+    border-radius:0.45em;
+    box-shadow: 0 0 12px black;
+}
+
+button:active
+{
+    box-shadow: none;
+}
+
+.login-outcome
+{
+    opacity: 0;
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
 }
