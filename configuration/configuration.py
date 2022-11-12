@@ -8,16 +8,17 @@ from model.authentication import hash_password
 @dataclass(frozen=True)
 class Configuration:
     port: int
-    authentication_url: str
+    authentication_url: str  # axios post request from index.html
     local_storage_key: str
     logo_image: str
     login_success_redirect_url: str
     jwt_secret: str
+    notification_url: str  # endpoint receiving post requests about user activity
 
 
 configuration = Configuration(0x4000, "http://localhost:16384/authenticate", "access_token",
                               "images/brand/Logo Files/For Web/svg/Black logo - no background.svg",
-                              "https://www.google.com/", "jwt_secret")
+                              "https://www.google.com/", "jwt_secret", "http://localhost:16384/notify")
 
 database_provider = MongoDBProvider("personal")
 

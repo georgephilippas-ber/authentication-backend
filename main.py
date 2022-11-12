@@ -1,3 +1,4 @@
+import jwt
 from flask import Flask, request, Response, render_template
 from flask_cors import CORS
 
@@ -12,8 +13,6 @@ CORS(application)
 initialize_database()
 create_root_user()
 
-
-# TODO: endpoints to notify on login & logout (possibly intervals)
 
 @application.route("/")
 def index():
@@ -45,19 +44,47 @@ def by_id():
 @application.route("/authenticate", methods=["POST"])
 def authenticate():
     if "identifier" in request.json and "password" in request.json:
-        token = authentication_manager.verify(request.json["identifier"], request.json["password"])
-        if token is not None:
-            return {"token": token}
+        verification = authentication_manager.verify(request.json["identifier"], request.json["password"])
+        print(verification)
+        if verification is not None:
+            user_id = verification["user_id"]
+
+            # notifying
+            requests.post(configuration.notification_url, data={"user_id": user_id, "action": "login"})
+
+            return {"token": verification["token"]}
         else:
             return Response(status=401)
     else:
         return Response(status=400)
 
 
-@application.route("/action")
-def action():
-    response = requests.post("http://localhost:16384/authenticate", json={"identifier": "root", "password": "root"})
-    return str(response.status_code)
+@application.route("/logout", methods=["GET"])
+def logout():
+    if "token" in request.args:
+        try:
+            object_ = jwt.decode(request.args["token"], configuration.jwt_secret, ["HS256"])
+
+            requests.post(configuration.notification_url, data={"user_id": object_["user_id"], "action": "logout"})
+
+            # TODO: future redirect to login screen
+            return Response(status=200)
+        except jwt.exceptions.InvalidTokenError as e:
+            print(e)
+            return Response(status=401)
+    else:
+        return Response(status=400)
+
+
+@application.route("/notify", methods=["POST"])
+def notify():
+    print(request.json)
+    if "user_id" in request.json and "action" in request.json:
+        print(request.json["user_id"], request.json["action"])
+
+        return Response(status=200)
+    else:
+        return Response(status=400)
 
 
 application.run(port=configuration.port, debug=True)

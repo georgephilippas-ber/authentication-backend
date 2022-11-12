@@ -10,6 +10,7 @@
     <title>Title</title>
 </head>
 <body>
+<a style="font-size: 3em" id="logout" href="link">logout</a>
 <div class="login-container">
     <div class="login-logo">
         <img style="height: 6em" src="{{ url_for('static', filename=variables['logo_image']) }}">
@@ -46,6 +47,8 @@
     login_outcome_element = document.getElementById("login-outcome");
 
     document.getElementById("submit").addEventListener("click", () => {
+        console.log(identifier, password);
+
         axios.post("{{ variables["authentication_url"] }}", {identifier: identifier, password: password}).then(value => {
             console.log(value.data.token);
 
@@ -54,12 +57,12 @@
             login_outcome_element.style.opacity = 1;
             login_outcome_element.innerHTML = "login success";
 
-            setTimeout(() =>
+            document.getElementById("logout").href = "http://localhost:16384/logout?token=" + localStorage.getItem("{{ variables["local_storage_key"] }}");
+
+   /*         setTimeout(() =>
                 window.location = "{{ variables["login_success_redirect_url"] }}",
-                1_000);
+                1_000);*/
         }).catch(err => {
-
-
             login_outcome_element.style.opacity = 1;
             login_outcome_element.innerHTML = "login failed";
 
@@ -67,6 +70,10 @@
             setTimeout(() => login_outcome_element.style.opacity = 0, 2_000);
         });
     });
+
+
+
+
 
 
 

@@ -71,12 +71,12 @@ class AuthenticationManager:
     def all(self):
         return list(map(lambda x: x["user_id"], self.collection.find({})))
 
-    def verify(self, identifier: str, password: str) -> str | None:
+    def verify(self, identifier: str, password: str) -> dict | None:
         agent: Agent | None = self.by_email(identifier) if is_email(identifier) else self.by_username(identifier)
 
         if agent is not None and verify_password(password, agent.password_hash, agent.salt):
             object_ = {"user_id": agent.user_id, "username": agent.username, "email": agent.email}
 
-            return jwt.encode(object_, self.jwt_secret)
+            return {"token": jwt.encode(object_, self.jwt_secret), "user_id": agent.user_id}
         else:
             return None
