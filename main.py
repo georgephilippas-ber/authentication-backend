@@ -13,6 +13,8 @@ initialize_database()
 create_root_user()
 
 
+# TODO: endpoints to notify on login & logout (possibly intervals)
+
 @application.route("/")
 def index():
     return render_template("index.html", variables=asdict(configuration))
