@@ -1,0 +1,44 @@
+body
+{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+
+    margin: 0;
+    padding: 0;
+
+    height: 100vh;
+}
+
+
+.login-container
+{
+    margin-top: 10em;
+    width: 40%;
+    height: 40%;
+
+    box-shadow: 5px 5px 10px black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input
+{
+    height: 1.65em;
+    padding: 0.35em;
+    
+    border: 1px solid black;
+    border-radius: 0.45em;
+
+    margin: 1em 4em;
+    
+    outline: none;
+
+}
+
+button
+{
+    outline: none !important;
+}

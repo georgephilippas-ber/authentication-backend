@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index.css') }}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="login">
+        <input id="identifier" type="text" placeholder="username or e-mail">
+        <input id="password" type="password">
+        <button id="submit">Login</button>
+    </div>
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+    let identifier = "";
+    let password = "";
+    
+    document.getElementById("identifier").addEventListener("change", (object) => {
+        identifier = object.target.value;
+    });
+
+    document.getElementById("password").addEventListener("change", (object) => {
+        password = object.target.value;
+    });
+
+    document.getElementById("submit").addEventListener("click", () => {
+        console.log(identifier, password);
+
+        axios.post("{{ variables["authentication_URL"] }}", {identifier: identifier, password: password}).then(value => {
+            console.log(value.data.token);
+
+            localStorage.setItem("accessToken", value.data.token);
+        }).catch(err => console.log(err.message));
+    });
+
+</script>
+</html>
