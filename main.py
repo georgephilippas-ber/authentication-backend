@@ -1,5 +1,5 @@
 import jwt
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, render_template, make_response, redirect
 from flask_cors import CORS
 
 from configuration.configuration import configuration, authentication_manager, initialize_database, create_root_user
@@ -72,7 +72,7 @@ def logout():
             requests.post(configuration.notification_url, json={"user_id": object_["user_id"], "action": "logout"})
 
             # TODO: future redirect to login screen
-            return Response(status=200)
+            return redirect(configuration.host + ":" + str(configuration.port) + "/")
         except jwt.exceptions.InvalidTokenError as e:
             print(e)
             return Response(status=401)
