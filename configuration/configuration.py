@@ -14,6 +14,7 @@ class Configuration:
     login_success_redirect_url: str
     jwt_secret: str
     notification_url: str  # endpoint receiving post requests about user activity
+    registration_success_redirect_url: str
 
     def authentication_url(self):
         return self.host + ":" + str(self.port) + "/" + "/authenticate"
@@ -27,7 +28,8 @@ class Configuration:
 
 configuration = Configuration("http://localhost", 0x4000, "access_token",
                               "images/brand/Logo Files/For Web/svg/Black logo - no background.svg",
-                              "https://www.google.com/", "jwt_secret", "http://localhost:16384/notify")
+                              "https://www.google.com/", "jwt_secret", "http://localhost:16384/notify",
+                              "http://localhost:" + str(0x4000) + "/")
 
 database_provider = MongoDBProvider("personal")
 

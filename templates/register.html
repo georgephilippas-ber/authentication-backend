@@ -86,7 +86,7 @@
             setTimeout(() => form_error_element.innerHTML = "", 1_600);
         } else {
             axios.post("{{ variables['registration_url'] }}", form).then(value => {
-                console.log("axios request success")
+                window.location = "{{ variables['registration_success_redirect_url'] }}"
             }).catch(err => {
                 console.log(err);
 
