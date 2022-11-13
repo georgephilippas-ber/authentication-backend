@@ -1,11 +1,11 @@
+from dataclasses import asdict
+
 import jwt
-from flask import Flask, request, Response, render_template, make_response, redirect
+import requests
+from flask import Flask, request, Response, render_template, redirect
 from flask_cors import CORS
 
 from configuration.configuration import configuration, authentication_manager, initialize_database, create_root_user
-
-import requests
-from dataclasses import asdict
 
 application = Flask(__name__)
 CORS(application)
