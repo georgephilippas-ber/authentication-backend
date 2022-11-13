@@ -12,6 +12,16 @@ body
     font-size: 1.25rem;
 }
 
+.login-container
+{
+    padding: 2em;
+
+    margin-top: 10em;
+    width: 40%;
+
+    box-shadow: 5px 5px 10px black;
+}
+
 .login-logo
 {
     margin: 1em;
@@ -36,16 +46,6 @@ body
     height: 6em;
 
     margin: 1em;
-}
-
-.login-container
-{
-    padding: 2em;
-
-    margin-top: 10em;
-    width: 40%;
-
-    box-shadow: 5px 5px 10px black;
 }
 
 .login-submit-container

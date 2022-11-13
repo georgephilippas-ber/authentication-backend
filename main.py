@@ -62,6 +62,11 @@ def authenticate():
         return Response(status=400)
 
 
+@application.route("/register")
+def register():
+    return Response(status=200)
+
+
 @application.route("/logout", methods=["GET"])
 def logout():
     if "token" in request.args:
