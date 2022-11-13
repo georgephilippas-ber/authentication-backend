@@ -62,12 +62,12 @@ def register_user():
 
     if authentication_manager.by_email(request.json["email"]) is not None or authentication_manager.by_email(
             request.json["username"]) is not None:
+        return Response(status=409)
+    else:
         [password_hash, password_salt] = hash_password(request.json["username"])
         authentication_manager.create(
             Agent(random.randint(0xff, sys.maxsize - 0x0f), request.json["username"], request.json["email"],
                   password_hash, password_salt))
-        return Response(status=409)
-    else:
         return Response(status=200)
 
 
