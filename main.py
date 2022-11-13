@@ -16,7 +16,8 @@ create_root_user()
 
 @application.route("/")
 def index():
-    return render_template("index.html", variables=asdict(configuration))
+    return render_template("index.html", variables={**asdict(configuration),
+                                                    "authentication_url": configuration.authentication_url()})
 
 
 @application.route("/users", methods=["GET"])
@@ -51,8 +52,10 @@ def authenticate():
 
             # notification
             requests.post(configuration.notification_url, json={"user_id": user_id, "action": "login"})
+            print(configuration.logout_url() + "?token=" + verification["token"])
 
-            return {"token": verification["token"]}
+            return {"token": verification["token"],
+                    "logout_href": configuration.logout_url() + "?token=" + verification["token"]}
         else:
             return Response(status=401)
     else:

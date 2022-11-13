@@ -10,7 +10,6 @@
     <title>Title</title>
 </head>
 <body>
-<a style="font-size: 3em" id="logout" href="link">logout</a>
 <div class="login-container">
     <div class="login-logo">
         <img style="height: 6em" src="{{ url_for('static', filename=variables['logo_image']) }}">
@@ -66,10 +65,11 @@
             login_outcome_element.style.opacity = 1;
             login_outcome_element.innerHTML = "login failed";
 
-            console.log(err.message)
             setTimeout(() => login_outcome_element.style.opacity = 0, 2_000);
         });
     });
+
+
 
 
 
