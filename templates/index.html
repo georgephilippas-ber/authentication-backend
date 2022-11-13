@@ -10,31 +10,31 @@
     <title>Title</title>
 </head>
 <body>
-<div class="login-container">
-    <div class="login-logo">
+<div class="action-container">
+    <div class="action-logo">
         <img style="height: 6em" src="{{ url_for('static', filename=variables['logo_image']) }}">
     </div>
 
-    <div class="login-prompt">
+    <div class="action-prompt">
         Sign in
     </div>
-    <div class="login-input-container">
+    <div class="action-input-container">
         <input id="identifier" type="text" placeholder="username or e-mail">
         <input id="password" type="password" placeholder="password">
     </div>
-    <div class="login-submit-container">
+    <div class="action-submit-container">
         <button id="submit">Log in</button>
     </div>
+    <div id="login-outcome" class="action-outcome-container"></div>
 </div>
 
-<div id="login-outcome" class="login-outcome"></div>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
     let identifier = "";
     let password = "";
-    
+
     document.getElementById("identifier").addEventListener("change", (object) => {
         identifier = object.target.value;
     });
@@ -56,9 +56,7 @@
             login_outcome_element.innerHTML = "<p>login success</p>";
             login_outcome_element.style.opacity = 1;
 
-            setTimeout(() =>
-                window.location = "{{ variables["login_success_redirect_url"] }}",
-                1_000);
+            setTimeout(() => window.location = "{{ variables["login_success_redirect_url"] }}", 1_000);
         }).catch(err => {
             login_outcome_element.innerHTML = "<p>login failure</p>";
             login_outcome_element.style.opacity = 1;
@@ -66,27 +64,5 @@
             setTimeout(() => login_outcome_element.style.opacity = 0, 2_000);
         });
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 </html>
