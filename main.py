@@ -20,12 +20,18 @@ def index():
                                                     "authentication_url": configuration.authentication_url()})
 
 
+@application.route("/register")
+def register():
+    return render_template("register.html", variables={**asdict(configuration),
+                                                       "authentication_url": configuration.authentication_url()})
+
+
 @application.route("/users", methods=["GET"])
 def users():
     return {"users": authentication_manager.all()}
 
 
-@application.route("/by_id")
+@application.route("/by_id", methods=["GET"])
 def by_id():
     if "user_id" in request.args:
         user_id = int(request.args["user_id"])
@@ -40,6 +46,11 @@ def by_id():
             }
         else:
             return str()
+
+
+@application.route("/register-user", methods=["POST"])
+def register_user():
+    return Response(status=200)
 
 
 @application.route("/authenticate", methods=["POST"])
@@ -62,11 +73,6 @@ def authenticate():
         return Response(status=400)
 
 
-@application.route("/register")
-def register():
-    return Response(status=200)
-
-
 @application.route("/logout", methods=["GET"])
 def logout():
     if "token" in request.args:
@@ -76,7 +82,6 @@ def logout():
             # notification
             requests.post(configuration.notification_url, json={"user_id": object_["user_id"], "action": "logout"})
 
-            # TODO: future redirect to login screen
             return redirect(configuration.host + ":" + str(configuration.port) + "/")
         except jwt.exceptions.InvalidTokenError as e:
             print(e)

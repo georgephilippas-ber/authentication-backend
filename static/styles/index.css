@@ -1,55 +1,46 @@
-body
-{
+body {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
+    flex-flow: column;
+    align-items: center;
 
     margin: 0;
     padding: 0;
-
 
     font-family: "Alegreya Sans", sans-serif;
     font-size: 1.25rem;
 }
 
-.action-container
-{
+.action-container {
     padding: 2em;
 
-    margin-top: 10em;
+    margin-top: 8em;
     width: 40%;
 
     box-shadow: 5px 5px 10px black;
 }
 
-.action-logo
-{
+.action-logo {
     margin: 1em;
     text-align: center;
 }
 
-.action-prompt
-{
+.action-prompt {
     font-size: 2em;
     text-align: center;
 
     margin-bottom: 1em;
 }
 
-.action-input-container
-{
+.action-input-container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 
-    height: 6em;
-
     margin: 1em;
 }
 
-.action-submit-container
-{
+.action-submit-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -58,8 +49,7 @@ body
 
 }
 
-.action-outcome-container
-{
+.action-outcome-container {
     box-shadow: 5px 5px 10px black;
     padding: 0.25em 0.75em;
 
@@ -71,8 +61,7 @@ body
 }
 
 
-input
-{
+input {
     font-family: inherit !important;
     font-size: inherit !important;
 
@@ -86,8 +75,7 @@ input
     outline: none;
 }
 
-button
-{
+button {
     font-family: inherit !important;
     font-size: inherit !important;
     outline: none !important;
@@ -102,9 +90,27 @@ button
     box-shadow: 0 0 12px black;
 }
 
-button:active
-{
+button:active {
     box-shadow: none;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 0.85em;
+    text-shadow: 0.3em 0.3em 0.5em #222222;
+}
 
+a:active {
+    text-shadow: none;
+}
+
+.input {
+    margin: 0.45em 0;
+}
+
+.validation-error {
+    height: 1em;
+    color: #7e0c02;
+    text-shadow: 0.55em 0.55em 1em #640a02;
+}

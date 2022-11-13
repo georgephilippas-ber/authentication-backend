@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index.css') }}">
+    <link rel="stylesheet" type="text/css" href="../static/styles/index.css">
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="action-container">
+    <div class="action-logo">
+        <img style="height: 6em" src="{{ url_for('static', filename=variables['logo_image']) }}">
+    </div>
+
+    <div class="action-prompt">
+        Register
+    </div>
+    <div class="action-input-container">
+        <input class="input" id="username" type="text" placeholder="username">
+        <input class="input" id="email" type="email" placeholder="e-mail">
+        <input class="input" id="password" type="password" placeholder="password">
+        <input class="input" id="repeat_password" type="password" placeholder="repeat password">
+    </div>
+    <div class="validation-error" id="form-error"></div>
+    <div class="action-submit-container">
+        <button id="submit">Register</button>
+    </div>
+    <div style="margin-top: 0.65em">
+        <a href="/">Log in instead</a>
+    </div>
+    <div id="login-outcome" class="action-outcome-container"></div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+    let form =
+        {
+            username: "",
+            email: "",
+            repeat_password: "",
+            password: ""
+        }
+
+    for (let form_element in form) {
+        document.getElementById(form_element).addEventListener("change", (object) => {
+            form[form_element] = object.target.value;
+
+            console.log(form);
+        });
+    }
+
+    function validate(form_) //:string
+    {
+        if (!form.username || !form.email || !form.password) {
+            let error_ = [];
+
+            if (!form.username)
+                error_.push("username");
+            if (!form.email)
+                error_.push("e-mail");
+            if (!form.password)
+                error_.push("password");
+
+            return [error_.join(", "), "empty"].join(" ");
+        }
+
+        if (form_.password !== form_.repeat_password)
+            return "passwords do not match"
+
+        return null;
+    }
+
+    function submit() {
+        let error_ = validate(form);
+
+        if (error_) {
+            const form_error = document.getElementById("form-error");
+            form_error.innerHTML = "<p>" + error_ + "</p>";
+
+            setTimeout(() => form_error.innerHTML = "", 1_600);
+        } else {
+            console.log("success");
+            // axios, submit and process response
+        }
+    }
+
+    document.getElementById("submit").addEventListener("click", submit);
+</script>
+</html>

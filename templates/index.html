@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index.css') }}">
+
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -19,11 +20,14 @@
         Sign in
     </div>
     <div class="action-input-container">
-        <input id="identifier" type="text" placeholder="username or e-mail">
-        <input id="password" type="password" placeholder="password">
+        <input class="input" id="identifier" type="text" placeholder="username or e-mail">
+        <input class="input" id="password" type="password" placeholder="password">
     </div>
     <div class="action-submit-container">
         <button id="submit">Log in</button>
+    </div>
+    <div style="margin-top: 0.65em">
+        <a href="/register">Register instead</a>
     </div>
     <div id="login-outcome" class="action-outcome-container"></div>
 </div>
@@ -48,15 +52,18 @@
     document.getElementById("submit").addEventListener("click", () => {
         console.log(identifier, password);
 
-        axios.post("{{ variables["authentication_url"] }}", {identifier: identifier, password: password}).then(value => {
+        axios.post("{{ variables['authentication_url'] }}", {
+            identifier: identifier,
+            password: password
+        }).then(value => {
             console.log(value.data.token);
 
-            localStorage.setItem("{{ variables["local_storage_key"] }}", value.data.token);
+            localStorage.setItem("{{ variables['local_storage_key'] }}", value.data.token);
 
             login_outcome_element.innerHTML = "<p>login success</p>";
             login_outcome_element.style.opacity = 1;
 
-            setTimeout(() => window.location = "{{ variables["login_success_redirect_url"] }}", 1_000);
+            setTimeout(() => window.location = "{{ variables['login_success_redirect_url'] }}", 1_000);
         }).catch(err => {
             login_outcome_element.innerHTML = "<p>login failure</p>";
             login_outcome_element.style.opacity = 1;
