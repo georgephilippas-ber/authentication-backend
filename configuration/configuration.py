@@ -9,7 +9,6 @@ from model.authentication import hash_password
 class Configuration:
     host: str
     port: int
-    authentication_endpoint: str  # axios post request from index.html
     local_storage_key: str
     logo_image: str
     login_success_redirect_url: str
@@ -17,13 +16,16 @@ class Configuration:
     notification_url: str  # endpoint receiving post requests about user activity
 
     def authentication_url(self):
-        return self.host + ":" + str(self.port) + "/" + self.authentication_endpoint
+        return self.host + ":" + str(self.port) + "/" + "/authenticate"
 
     def logout_url(self):
         return self.host + ":" + str(self.port) + "/logout"
 
+    def registration_url(self):
+        return self.host + ":" + str(self.port) + "/register-user"
 
-configuration = Configuration("http://localhost", 0x4000, "authenticate", "access_token",
+
+configuration = Configuration("http://localhost", 0x4000, "access_token",
                               "images/brand/Logo Files/For Web/svg/Black logo - no background.svg",
                               "https://www.google.com/", "jwt_secret", "http://localhost:16384/notify")
 

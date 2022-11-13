@@ -17,7 +17,8 @@ create_root_user()
 @application.route("/")
 def index():
     return render_template("index.html", variables={**asdict(configuration),
-                                                    "authentication_url": configuration.authentication_url()})
+                                                    "authentication_url": configuration.authentication_url(),
+                                                    "registration_url": configuration.registration_url()})
 
 
 @application.route("/register")
