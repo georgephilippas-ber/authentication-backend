@@ -45,12 +45,12 @@ def by_id():
 def authenticate():
     if "identifier" in request.json and "password" in request.json:
         verification = authentication_manager.verify(request.json["identifier"], request.json["password"])
-        print(verification)
+
         if verification is not None:
             user_id = verification["user_id"]
 
-            # notifying
-            requests.post(configuration.notification_url, data={"user_id": user_id, "action": "login"})
+            # notification
+            requests.post(configuration.notification_url, json={"user_id": user_id, "action": "login"})
 
             return {"token": verification["token"]}
         else:
@@ -65,7 +65,8 @@ def logout():
         try:
             object_ = jwt.decode(request.args["token"], configuration.jwt_secret, ["HS256"])
 
-            requests.post(configuration.notification_url, data={"user_id": object_["user_id"], "action": "logout"})
+            # notification
+            requests.post(configuration.notification_url, json={"user_id": object_["user_id"], "action": "logout"})
 
             # TODO: future redirect to login screen
             return Response(status=200)
@@ -78,9 +79,8 @@ def logout():
 
 @application.route("/notify", methods=["POST"])
 def notify():
-    print(request.json)
     if "user_id" in request.json and "action" in request.json:
-        print(request.json["user_id"], request.json["action"])
+        print(request.json)
 
         return Response(status=200)
     else:
