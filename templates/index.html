@@ -53,21 +53,22 @@
 
             localStorage.setItem("{{ variables["local_storage_key"] }}", value.data.token);
 
+            login_outcome_element.innerHTML = "<p>login success</p>";
             login_outcome_element.style.opacity = 1;
-            login_outcome_element.innerHTML = "login success";
 
-            document.getElementById("logout").href = "http://localhost:16384/logout?token=" + localStorage.getItem("{{ variables["local_storage_key"] }}");
-
-   /*         setTimeout(() =>
+            setTimeout(() =>
                 window.location = "{{ variables["login_success_redirect_url"] }}",
-                1_000);*/
+                1_000);
         }).catch(err => {
+            login_outcome_element.innerHTML = "<p>login failure</p>";
             login_outcome_element.style.opacity = 1;
-            login_outcome_element.innerHTML = "login failed";
 
             setTimeout(() => login_outcome_element.style.opacity = 0, 2_000);
         });
     });
+
+
+
 
 
 
