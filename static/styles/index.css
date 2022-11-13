@@ -110,7 +110,8 @@ a:active {
 }
 
 .validation-error {
-    height: 1em;
+    height: 2em;
+    font-family: "Cabin Medium", sans-serif;
+    font-size: 0.75em;
     color: #7e0c02;
-    text-shadow: 0.55em 0.55em 1em #640a02;
 }

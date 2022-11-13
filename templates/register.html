@@ -76,19 +76,21 @@
     }
 
     function submit() {
-        let error_ = validate(form);
+        const form_error_element = document.getElementById("form-error");
+        let error_string = validate(form);
 
-        if (error_) {
-            const form_error = document.getElementById("form-error");
-            form_error.innerHTML = "<p>" + error_ + "</p>";
+        if (error_string) {
 
-            setTimeout(() => form_error.innerHTML = "", 1_600);
+            form_error_element.innerHTML = "<p>" + error_string + "</p>";
+
+            setTimeout(() => form_error_element.innerHTML = "", 1_600);
         } else {
             axios.post("{{ variables['registration_url'] }}", form).then(value => {
                 console.log("axios request success")
             }).catch(err => {
                 console.log(err);
-                console.log("axios request failure")
+
+                form_error_element.innerHTML = "<p>Network or Server not Available</p>"
             });
         }
     }

@@ -1,9 +1,14 @@
+import random
+import sys
 from dataclasses import asdict
 
 import jwt
 import requests
 from flask import Flask, request, Response, render_template, redirect
 from flask_cors import CORS
+
+from managers.authentication_manager import Agent
+from model.authentication import hash_password
 
 from configuration.configuration import configuration, authentication_manager, initialize_database, create_root_user
 
@@ -18,13 +23,13 @@ create_root_user()
 def index():
     return render_template("index.html", variables={**asdict(configuration),
                                                     "authentication_url": configuration.authentication_url(),
-                                                    "registration_url": configuration.registration_url()})
+                                                    })
 
 
 @application.route("/register")
 def register():
     return render_template("register.html", variables={**asdict(configuration),
-                                                       "authentication_url": configuration.authentication_url()})
+                                                       "registration_url": configuration.registration_url()})
 
 
 @application.route("/users", methods=["GET"])
@@ -51,7 +56,19 @@ def by_id():
 
 @application.route("/register-user", methods=["POST"])
 def register_user():
-    return Response(status=200)
+    for key in ["username", "email", "password"]:
+        if key not in request.json:
+            return Response(status=400)
+
+    if authentication_manager.by_email(request.json["email"]) is not None or authentication_manager.by_email(
+            request.json["username"]) is not None:
+        [password_hash, password_salt] = hash_password(request.json["username"])
+        authentication_manager.create(
+            Agent(random.randint(0xff, sys.maxsize - 0x0f), request.json["username"], request.json["email"],
+                  password_hash, password_salt))
+        return Response(status=409)
+    else:
+        return Response(status=200)
 
 
 @application.route("/authenticate", methods=["POST"])
