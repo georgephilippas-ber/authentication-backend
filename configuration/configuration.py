@@ -4,6 +4,8 @@ from managers.authentication_manager import AuthenticationManager, Agent
 from managers.database_provider.mongodb_provider import MongoDBProvider
 from model.authentication import hash_password
 
+import json
+
 
 @dataclass(frozen=True)
 class Configuration:
@@ -26,10 +28,9 @@ class Configuration:
         return self.host + ":" + str(self.port) + "/register-user"
 
 
-configuration = Configuration("http://localhost", 0x4000, "access_token",
-                              "images/brand/Logo Files/For Web/svg/Black logo - no background.svg",
-                              "https://www.google.com/", "jwt_secret", "http://localhost:16384/notify",
-                              "http://localhost:" + str(0x4000) + "/")
+configuration_file = open("configuration.json")
+
+configuration = Configuration(**json.load(configuration_file))
 
 database_provider = MongoDBProvider("personal")
 

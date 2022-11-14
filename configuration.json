@@ -1,0 +1,10 @@
+{
+  "host": "http://localhost",
+  "port": 16384,
+  "local_storage_key": "access_token",
+  "logo_image": "images/brand/Logo Files/For Web/svg/Black logo - no background.svg",
+  "login_success_redirect_url": "https://www.google.com/",
+  "registration_success_redirect_url": "http://localhost:16384/",
+  "jwt_secret": "jwt_secret",
+  "notification_url": "http://localhost:16384/notify"
+}
