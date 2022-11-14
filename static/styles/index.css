@@ -98,7 +98,6 @@ a {
     text-decoration: none;
     color: black;
     font-size: 0.85em;
-    text-shadow: 0.3em 0.3em 0.5em #222222;
 }
 
 a:active {
@@ -114,4 +113,8 @@ a:active {
     font-family: "Cabin Medium", sans-serif;
     font-size: 0.75em;
     color: #7e0c02;
+}
+
+.alternative {
+    margin-top: 0.65em;
 }
