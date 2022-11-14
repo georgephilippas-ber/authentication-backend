@@ -3,6 +3,9 @@ body {
     flex-flow: row;
     justify-content: flex-start;
 
+    width: 100vw;
+    height: 100vh;
+
     margin: 0;
     padding: 0;
 
@@ -15,32 +18,23 @@ body {
     background-position: center center;
 }
 
-.copy-container
-{
-    margin-top: 4em;
-    margin-left: 4em;
-    margin-right: 2em;
-
+.copy-container {
+    margin: 4em 2em;
 
     width: 100%;
-    height: 80vh;
 }
 
-.copy-title
-{
+.copy-title {
     font-size: 4em;
-    margin: 0.7rem 0;
+    margin: 1em;
     color: white;
 }
 
-.copy-subtitle
-{
+.copy-subtitle {
     font-size: 2.15em;
-    margin: 0.7em;
 }
 
-.copy-text
-{
+.copy-text {
     width: 30em;
     text-shadow: 0.25em 0.25em 0.1em white;
     font-size: 1.75em;
@@ -117,8 +111,7 @@ input {
     outline: none;
 }
 
-::selection
-{
+::selection {
     background-color: lightgray;
 }
 

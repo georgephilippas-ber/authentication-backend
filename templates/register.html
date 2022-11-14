@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-<div style="margin-left: 27vw" class="action-container">
+<div class="action-container">
     <div class="action-logo">
         <img style="height: 6em" src="{{ url_for('static', filename=variables['logo_image']) }}">
     </div>
@@ -35,6 +35,19 @@
     </div>
     <div id="login-outcome" class="action-outcome-container"></div>
 </div>
+
+<div class="copy-container">
+    <div class="copy-title">
+        {{ variables["content"]["landing-title"] }}
+    </div>
+    <div class="copy-subtitle">
+        {{ variables["content"]["landing-subtitle"] }}
+    </div>
+    <div class="copy-text">
+        {{ variables["content"]["landing-body"] }}
+    </div>
+</div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">

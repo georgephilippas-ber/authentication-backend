@@ -31,7 +31,8 @@ def index():
 @application.route("/register")
 def register():
     return render_template("register.html", variables={**asdict(configuration),
-                                                       "registration_url": configuration.registration_url()})
+                                                       "registration_url": configuration.registration_url(),
+                                                       "content": content})
 
 
 @application.route("/users", methods=["GET"])
