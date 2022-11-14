@@ -32,6 +32,17 @@
     <div id="login-outcome" class="action-outcome-container"></div>
 </div>
 
+<div class="copy-container">
+    <div class="copy-title">
+        {{ variables["content"]["landing-title"] }}
+    </div>
+    <div class="copy-subtitle">
+        {{ variables["content"]["landing-subtitle"] }}
+    </div>
+    <div class="copy-text">
+        {{ variables["content"]["landing-body"] }}
+    </div>
+</div>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -71,5 +82,6 @@
             setTimeout(() => login_outcome_element.style.opacity = 0, 2_000);
         });
     });
+
 </script>
 </html>

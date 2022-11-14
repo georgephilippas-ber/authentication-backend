@@ -29,8 +29,14 @@ class Configuration:
 
 
 configuration_file = open("configuration.json")
+content_file = open("content.json")
+
+content = json.load(content_file)
 
 configuration = Configuration(**json.load(configuration_file))
+
+content_file.close()
+configuration_file.close()
 
 database_provider = MongoDBProvider("personal")
 

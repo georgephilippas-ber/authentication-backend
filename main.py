@@ -11,6 +11,7 @@ from managers.authentication_manager import Agent
 from model.authentication import hash_password
 
 from configuration.configuration import configuration, authentication_manager, initialize_database, create_root_user
+from configuration.configuration import content
 
 application = Flask(__name__)
 CORS(application)
@@ -23,6 +24,7 @@ create_root_user()
 def index():
     return render_template("index.html", variables={**asdict(configuration),
                                                     "authentication_url": configuration.authentication_url(),
+                                                    "content": content
                                                     })
 
 
